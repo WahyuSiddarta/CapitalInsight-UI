@@ -11,6 +11,7 @@ import {
 import CalculatorThinkId from "../components/Fundamental/CalculatorThinkId";
 import CalculatorDCF from "../components/Fundamental/CalculatorDCF";
 import CalculatorDMM from "../components/Fundamental/CalculatorDMM";
+import CalculatorERM from "../components/Fundamental/CalculatorERM";
 
 function Fundamental() {
   return (
@@ -24,7 +25,7 @@ function Fundamental() {
         >
           <AccordionItem value="definition">
             <AccordionTrigger>
-              <h5 className="text-lg font-bold fonnt-bold">Definition</h5>
+              <h5 className="text-lg font-bold fonnt-bold">Definisi</h5>
             </AccordionTrigger>
             <AccordionContent>
               <div>
@@ -57,7 +58,7 @@ function Fundamental() {
           </AccordionItem>
           <AccordionItem value="variant">
             <AccordionTrigger>
-              <h5 className="text-lg font-bold fonnt-bold">Variant</h5>
+              <h5 className="text-lg font-bold fonnt-bold">Variasi</h5>
             </AccordionTrigger>
             <AccordionContent>
               <ol className="flex flex-col gap-2 list-decimal list-inside">
@@ -114,7 +115,7 @@ function Fundamental() {
       </div>
       <div className="col-span-12 p-4 bg-white rounded-sm dark:bg-gray-800">
         <h5 className="mb-2 font-bold">Calculator Saham</h5>
-        <h6 className="mb-1 text-lg">Model</h6>
+
         <Tabs defaultValue="model" className="w-full">
           <TabsList className="grid w-full grid-cols-1 gap-2 lg:grid-cols-3 md:grid-cols-2">
             <TabsTrigger
@@ -135,6 +136,12 @@ function Fundamental() {
             >
               Dividend Discount Model (DDM)
             </TabsTrigger>
+            <TabsTrigger
+              value="erm"
+              className="border border-violet-300 lg:border-none"
+            >
+              Excess Return Model
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="model">
             <CalculatorThinkId />
@@ -144,6 +151,9 @@ function Fundamental() {
           </TabsContent>
           <TabsContent value="dmm">
             <CalculatorDMM />
+          </TabsContent>
+          <TabsContent value="erm">
+            <CalculatorERM />
           </TabsContent>
         </Tabs>
       </div>

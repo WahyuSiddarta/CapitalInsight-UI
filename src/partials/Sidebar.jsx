@@ -54,7 +54,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
     <div className="min-w-fit">
       {/* Sidebar backdrop (mobile only) */}
       <div
-        className={`fixed inset-0 bg-gray-900/30 z-40 lg:hidden lg:z-auto transition-opacity duration-200 ${
+        className={`fixed inset-0 bg-gray-900/30 z-40 md:hide lg:z-auto transition-opacity duration-200 ${
           sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         aria-hidden="true"
@@ -77,7 +77,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
           {/* Close button */}
           <button
             ref={trigger}
-            className="text-gray-500 lg:hidden hover:text-gray-400"
+            className="text-gray-500 md:hide hover:text-gray-400"
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-controls="sidebar"
             aria-expanded={sidebarOpen}
@@ -115,19 +115,22 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
               >
                 •••
               </span>
-              <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+              <span className="md:hide lg:sidebar-expanded:block 2xl:block">
                 Pages
               </span>
             </h3>
             <ul className="mt-3">
               {/* Dashboard */}
-              <SidebarLinkGroup activecondition={pathname === "/dashboard"}>
+              <SidebarLinkGroup
+                sideBarOpen={sidebarExpanded}
+                activecondition={pathname === "/dashboard"}
+              >
                 {(handleClick, open) => {
                   return (
                     <ul>
                       <li
                         className={`pl-0 pr-3 py-2 rounded-lg mb-0.5 last:mb-0  ${
-                          pathname.includes("messages") &&
+                          pathname == "/dashboard" &&
                           "from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]"
                         }`}
                       >
@@ -135,7 +138,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                           end
                           to="/dashboard"
                           className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
-                            pathname.includes("messages")
+                            pathname == "/dashboard"
                               ? ""
                               : "hover:text-gray-900 dark:hover:text-white"
                           }`}
@@ -144,8 +147,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                             <div className="flex items-center grow">
                               <svg
                                 className={`shrink-0 fill-current ${
-                                  pathname === "/" ||
-                                  pathname.includes("dashboard")
+                                  pathname == "/dashboard"
                                     ? "text-violet-500"
                                     : "text-gray-400 dark:text-gray-500"
                                 }`}
@@ -168,9 +170,10 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                   );
                 }}
               </SidebarLinkGroup>
-              {/* E-Commerce */}
+              {/* Portfolio */}
               <SidebarLinkGroup
-                activecondition={pathname.includes("ecommerce")}
+                sideBarOpen={sidebarExpanded}
+                activecondition={pathname.includes("portfolio")}
               >
                 {(handleClick, open) => {
                   return (
@@ -178,7 +181,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                       <a
                         href="#0"
                         className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
-                          pathname.includes("ecommerce")
+                          pathname.includes("portfolio")
                             ? ""
                             : "hover:text-gray-900 dark:hover:text-white"
                         }`}
@@ -192,7 +195,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                           <div className="flex items-center">
                             <svg
                               className={`shrink-0 fill-current ${
-                                pathname.includes("ecommerce")
+                                pathname.includes("portfolio")
                                   ? "text-violet-500"
                                   : "text-gray-400 dark:text-gray-500"
                               }`}
@@ -220,12 +223,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                           </div>
                         </div>
                       </a>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                      <div className="md:hide lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-8 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to="/dashboard/portfolio/main-fund"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " +
                                 (isActive
@@ -234,14 +237,14 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               }
                             >
                               <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Customers
+                                Main Fund
                               </span>
                             </NavLink>
                           </li>
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to="/dashboard/portfolio/other"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " +
                                 (isActive
@@ -250,135 +253,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               }
                             >
                               <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Orders
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="https://cruip.com/mosaic/"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-violet-500"
-                                  : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
-                              }
-                            >
-                              <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Invoices
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="https://cruip.com/mosaic/"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-violet-500"
-                                  : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
-                              }
-                            >
-                              <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Shop
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="https://cruip.com/mosaic/"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-violet-500"
-                                  : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
-                              }
-                            >
-                              <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Shop 2
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="https://cruip.com/mosaic/"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-violet-500"
-                                  : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
-                              }
-                            >
-                              <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Single Product
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="https://cruip.com/mosaic/"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-violet-500"
-                                  : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
-                              }
-                            >
-                              <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Cart
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="https://cruip.com/mosaic/"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-violet-500"
-                                  : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
-                              }
-                            >
-                              <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Cart 2
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="https://cruip.com/mosaic/"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-violet-500"
-                                  : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
-                              }
-                            >
-                              <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Cart 3
-                              </span>
-                            </NavLink>
-                          </li>
-                          <li className="mb-1 last:mb-0">
-                            <NavLink
-                              end
-                              to="https://cruip.com/mosaic/"
-                              className={({ isActive }) =>
-                                "block transition duration-150 truncate " +
-                                (isActive
-                                  ? "text-violet-500"
-                                  : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
-                              }
-                            >
-                              <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                                Pay
+                                Other
                               </span>
                             </NavLink>
                           </li>
@@ -389,12 +264,15 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                 }}
               </SidebarLinkGroup>
               {/* Analysis */}
-              <SidebarLinkGroup activecondition={pathname.includes("analysis")}>
+              <SidebarLinkGroup
+                sideBarOpen={sidebarExpanded}
+                activecondition={pathname.includes("analysis")}
+              >
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
                       <a
-                        href="#0"
+                        href="#1"
                         className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
                           pathname.includes("analysis")
                             ? ""
@@ -422,7 +300,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               <path d="M12 1a1 1 0 1 0-2 0v2a3 3 0 0 0 3 3h2a1 1 0 1 0 0-2h-2a1 1 0 0 1-1-1V1ZM1 10a1 1 0 1 0 0 2h2a1 1 0 0 1 1 1v2a1 1 0 1 0 2 0v-2a3 3 0 0 0-3-3H1ZM5 0a1 1 0 0 1 1 1v2a3 3 0 0 1-3 3H1a1 1 0 0 1 0-2h2a1 1 0 0 0 1-1V1a1 1 0 0 1 1-1ZM12 13a1 1 0 0 1 1-1h2a1 1 0 1 0 0-2h-2a3 3 0 0 0-3 3v2a1 1 0 1 0 2 0v-2Z" />
                             </svg>
                             <span className="ml-4 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
-                              Analysis
+                              Analysis Saham
                             </span>
                           </div>
                           {/* Icon */}
@@ -438,7 +316,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                           </div>
                         </div>
                       </a>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                      <div className="md:hide lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-8 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink
@@ -459,7 +337,23 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                           <li className="mb-1 last:mb-0">
                             <NavLink
                               end
-                              to="https://cruip.com/mosaic/"
+                              to="/dashboard/analysis/technical-analysis"
+                              className={({ isActive }) =>
+                                "block transition duration-150 truncate " +
+                                (isActive
+                                  ? "text-violet-500"
+                                  : "text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200")
+                              }
+                            >
+                              <span className="text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
+                                Technical analysis
+                              </span>
+                            </NavLink>
+                          </li>
+                          <li className="mb-1 last:mb-0">
+                            <NavLink
+                              end
+                              to="/dashboard/analysis/bandarmology"
                               className={({ isActive }) =>
                                 "block transition duration-150 truncate " +
                                 (isActive
@@ -478,6 +372,91 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                   );
                 }}
               </SidebarLinkGroup>
+              <SidebarLinkGroup
+                sideBarOpen={sidebarExpanded}
+                activecondition={pathname === "/dashboard/asset/custom-asset"}
+              >
+                {(handleClick, open) => {
+                  return (
+                    <ul>
+                      <li
+                        className={`pl-0 pr-3 py-2 rounded-lg mb-0.5 last:mb-0  ${
+                          pathname == "/dashboard/asset/custom-asset" &&
+                          "from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]"
+                        }`}
+                      >
+                        <NavLink
+                          end
+                          to="/dashboard/asset/custom-asset"
+                          className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
+                            pathname == "/dashboard/asset/custom-asset"
+                              ? ""
+                              : "hover:text-gray-900 dark:hover:text-white"
+                          }`}
+                        >
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center grow">
+                              <svg
+                                className={`shrink-0 fill-current ${
+                                  pathname == "/dashboard/asset/custom-asset"
+                                    ? "text-violet-500"
+                                    : "text-gray-400 dark:text-gray-500"
+                                }`}
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 16 16"
+                              >
+                                <path d="M5.936.278A7.983 7.983 0 0 1 8 0a8 8 0 1 1-8 8c0-.722.104-1.413.278-2.064a1 1 0 1 1 1.932.516A5.99 5.99 0 0 0 2 8a6 6 0 1 0 6-6c-.53 0-1.045.076-1.548.21A1 1 0 1 1 5.936.278Z" />
+                                <path d="M6.068 7.482A2.003 2.003 0 0 0 8 10a2 2 0 1 0-.518-3.932L3.707 2.293a1 1 0 0 0-1.414 1.414l3.775 3.775Z" />
+                              </svg>
+                              <span className="ml-4 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
+                                Custom Asset
+                              </span>
+                            </div>
+                          </div>
+                        </NavLink>
+                      </li>
+                    </ul>
+                  );
+                }}
+              </SidebarLinkGroup>
+              {/* custom-asset */}
+              {/* <li
+                className={`pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-linear-to-r ${
+                  pathname.includes("custom-asset") &&
+                  "from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]"
+                }`}
+              >
+                <NavLink
+                  end
+                  to="/dashboard/assets/custom-asset"
+                  className={`block text-gray-800 dark:text-gray-100 truncate transition duration-150 ${
+                    pathname.includes("custom-asset")
+                      ? ""
+                      : "hover:text-gray-900 dark:hover:text-white"
+                  }`}
+                >
+                  <div className="flex items-center">
+                    <svg
+                      className={`shrink-0 fill-current ${
+                        pathname.includes("custom-asset")
+                          ? "text-violet-500"
+                          : "text-gray-400 dark:text-gray-500"
+                      }`}
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11.92 6.851c.044-.027.09-.05.137-.07.481-.275.758-.68.908-1.256.126-.55.169-.81.357-2.058.075-.498.144-.91.217-1.264-4.122.75-7.087 2.984-9.12 6.284a18.087 18.087 0 0 0-1.985 4.585 17.07 17.07 0 0 0-.354 1.506c-.05.265-.076.448-.086.535a1 1 0 0 1-1.988-.226c.056-.49.209-1.312.502-2.357a20.063 20.063 0 0 1 2.208-5.09C5.31 3.226 9.306.494 14.913.004a1 1 0 0 1 .954 1.494c-.237.414-.375.993-.567 2.267-.197 1.306-.244 1.586-.392 2.235-.285 1.094-.789 1.853-1.552 2.363-.748 3.816-3.976 5.06-8.515 4.326a1 1 0 0 1 .318-1.974c2.954.477 4.918.025 5.808-1.556-.628.085-1.335.121-2.127.121a1 1 0 1 1 0-2c1.458 0 2.434-.116 3.08-.429Z" />
+                    </svg>
+                    <span className="ml-4 text-sm font-medium duration-200 lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100">
+                      Custom Asset
+                    </span>
+                  </div>
+                </NavLink>
+              </li> */}
             </ul>
           </div>
           {/* More group */}
@@ -489,13 +468,13 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
               >
                 •••
               </span>
-              <span className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+              <span className="md:hide lg:sidebar-expanded:block 2xl:block">
                 More
               </span>
             </h3>
             <ul className="mt-3">
               {/* Authentication */}
-              <SidebarLinkGroup>
+              <SidebarLinkGroup sideBarOpen={sidebarExpanded}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
@@ -540,7 +519,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                           </div>
                         </div>
                       </a>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                      <div className="md:hide lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-8 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink
@@ -579,7 +558,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                 }}
               </SidebarLinkGroup>
               {/* Onboarding */}
-              <SidebarLinkGroup>
+              <SidebarLinkGroup sideBarOpen={sidebarExpanded}>
                 {(handleClick, open) => {
                   return (
                     <React.Fragment>
@@ -624,7 +603,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                           </div>
                         </div>
                       </a>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                      <div className="md:hide lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-8 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink
@@ -674,6 +653,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
               </SidebarLinkGroup>
               {/* Components */}
               <SidebarLinkGroup
+                sideBarOpen={sidebarExpanded}
                 activecondition={pathname.includes("component")}
               >
                 {(handleClick, open) => {
@@ -724,7 +704,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                           </div>
                         </div>
                       </a>
-                      <div className="lg:hidden lg:sidebar-expanded:block 2xl:block">
+                      <div className="md:hide lg:sidebar-expanded:block 2xl:block">
                         <ul className={`pl-8 mt-1 ${!open && "hidden"}`}>
                           <li className="mb-1 last:mb-0">
                             <NavLink

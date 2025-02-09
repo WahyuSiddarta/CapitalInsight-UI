@@ -34,7 +34,7 @@ const CalculatorDMM = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="grid grid-cols-1 gap-3 space-y-2">
-        <Tabs defaultValue="constant" className="w-full">
+        <Tabs defaultValue="gmm" className="w-full">
           <TabsList className="grid w-full grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
             <TabsTrigger
               value="gmm"
