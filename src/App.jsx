@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React, { useEffect, lazy } from "react";
 import { Routes, Route, useLocation, Navigate } from "react-router";
 
 import "./app.css";
 
 // Import pages
-import Dashboard from "./pages/Dashboard";
-import LoginPage from "./pages/Login";
-import DashboardLayout from "./partials/DashboardLayout";
-import Fundamental from "./pages/Fundamental";
-import ComingSoon from "./pages/ComingSoon";
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const LoginPage = lazy(() => import("./pages/Login"));
+const DashboardLayout = lazy(() => import("./partials/DashboardLayout"));
+const Fundamental = lazy(() => import("./pages/Fundamental"));
+const ComingSoon = lazy(() => import("./pages/ComingSoon"));
 
 function App() {
   const location = useLocation();
@@ -38,7 +38,7 @@ function App() {
           <Route path="*" element={<ComingSoon />} />
         </Route>
 
-        {/* <Route path="*" element={<Navigate to="/login" replace />} /> */}
+        <Route path="*" element={<Navigate to="/login" replace />} />
         <Route path="/login" element={<LoginPage />} />
       </Routes>
     </>

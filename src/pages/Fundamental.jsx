@@ -46,12 +46,16 @@ function Fundamental() {
                 </p>
                 <p className="text-sm">
                   Inti dari analisis fundamental adalah menghitung harga wajar
-                  saat ini dan / atau masa depan sebuah saham. Dikarenakan dalam
-                  mata uang, uang saat ini {">"} lebih besar dari uang masa
-                  depan, maka penilaian saham di masa depan harus dikurangi
-                  dengan discount. Discount ini dinamakan discount rate, model
-                  dari perhitungan nilai masa depan pada umumnya adalah nilai
-                  masa depan dikurangi dengan discounted rate
+                  saat ini dan / atau masa depan sebuah saham. Dikarenakan uang
+                  saat ini {">"} lebih besar dari uang masa depan, dikarenakan
+                  adanya faktor seperti{" "}
+                  <span className="italic font-bold">
+                    inflasi, ketidakpastian ekonomi, opportunity cost dll.
+                  </span>{" "}
+                  Maka penilaian valuasi perusahaan di masa depan harus
+                  dikurangi dengan discount. Discount ini dinamakan discount
+                  rate, model dari perhitungan nilai masa depan pada umumnya
+                  adalah nilai masa depan dikurangi dengan discounted rate
                 </p>
               </div>
             </AccordionContent>
