@@ -11,7 +11,7 @@ import {
 import CalculatorThinkId from "../components/Fundamental/CalculatorThinkId";
 import CalculatorDCF from "../components/Fundamental/CalculatorDCF";
 import CalculatorDMM from "../components/Fundamental/CalculatorDMM";
-import CalculatorERM from "../components/Fundamental/CalculatorERM";
+import CalculatorCAPM from "../components/Fundamental/CalculatorCAPM";
 
 function Fundamental() {
   return (
@@ -121,30 +121,30 @@ function Fundamental() {
         <h5 className="mb-2 font-bold">Calculator Saham</h5>
 
         <Tabs defaultValue="model" className="w-full">
-          <TabsList className="grid w-full grid-cols-1 gap-2 lg:grid-cols-3 md:grid-cols-2">
+          <TabsList className="grid w-full grid-cols-1 gap-2 md:grid-cols-2">
             <TabsTrigger
               value="model"
               className="border border-violet-300 lg:border-none"
             >
-              Our Model
+              Simple Model
             </TabsTrigger>
-            <TabsTrigger
+            {/* <TabsTrigger
               value="dcf"
               className="border border-violet-300 lg:border-none"
             >
               Discounted Cash Flow (DCF)
-            </TabsTrigger>
-            <TabsTrigger
+            </TabsTrigger> */}
+            {/* <TabsTrigger
               value="dmm"
               className="border border-violet-300 lg:border-none"
             >
               Dividend Discount Model (DDM)
-            </TabsTrigger>
+            </TabsTrigger> */}
             <TabsTrigger
-              value="erm"
+              value="capm"
               className="border border-violet-300 lg:border-none"
             >
-              Excess Return Model
+              CAPM
             </TabsTrigger>
           </TabsList>
           <TabsContent value="model">
@@ -156,8 +156,8 @@ function Fundamental() {
           <TabsContent value="dmm">
             <CalculatorDMM />
           </TabsContent>
-          <TabsContent value="erm">
-            <CalculatorERM />
+          <TabsContent value="capm">
+            <CalculatorCAPM />
           </TabsContent>
         </Tabs>
       </div>

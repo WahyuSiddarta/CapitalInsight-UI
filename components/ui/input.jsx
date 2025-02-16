@@ -11,8 +11,9 @@ const Input = React.forwardRef(({ className, type, ...props }, ref) => {
       <input
         type={type}
         className={cn(
-          "flex h-9 w-full rounded-md bg-transparent px-3 py-1 text-base  md:text-sm",
-          className
+          "flex h-9 w-full rounded-md bg-transparent px-3 py-1 text-base md:text-sm",
+          className,
+          "text-black dark:text-white" // or "text-black" based on your requirement
         )}
         ref={ref}
         {...props}

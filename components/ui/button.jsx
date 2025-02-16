@@ -41,8 +41,18 @@ const Button = React.forwardRef(
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
+        disabled={props.disabled || props.loading}
         {...props}
-      />
+      >
+        {props.loading ? (
+          <>
+            <svg class="mr-3 size-5 animate-spin ..." viewBox="0 0 24 24"></svg>
+            Processing…
+          </>
+        ) : (
+          props.children
+        )}
+      </Comp>
     );
   }
 );

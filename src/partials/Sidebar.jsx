@@ -77,12 +77,12 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
           {/* Close button */}
           <button
             ref={trigger}
-            className="text-gray-500 md:hide hover:text-gray-400"
+            className="text-gray-500 md:hidden hover:text-gray-400"
             onClick={() => setSidebarOpen(!sidebarOpen)}
             aria-controls="sidebar"
             aria-expanded={sidebarOpen}
           >
-            <span className="sr-only">Close sidebar</span>
+            <span className="sr-only ">Close sidebar</span>
             <svg
               className="w-6 h-6 fill-current"
               viewBox="0 0 24 24"
@@ -460,7 +460,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
             </ul>
           </div>
           {/* More group */}
-          <div>
+          {/* <div>
             <h3 className="pl-3 text-xs font-semibold text-gray-400 uppercase dark:text-gray-500">
               <span
                 className="hidden w-6 text-center lg:block lg:sidebar-expanded:hidden 2xl:hidden"
@@ -473,7 +473,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
               </span>
             </h3>
             <ul className="mt-3">
-              {/* Authentication */}
+            
               <SidebarLinkGroup sideBarOpen={sidebarExpanded}>
                 {(handleClick, open) => {
                   return (
@@ -506,7 +506,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               Authentication
                             </span>
                           </div>
-                          {/* Icon */}
+                      
                           <div className="flex ml-2 shrink-0">
                             <svg
                               className={`w-3 h-3 shrink-0 ml-1 fill-current text-gray-400 dark:text-gray-500 ${
@@ -557,7 +557,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                   );
                 }}
               </SidebarLinkGroup>
-              {/* Onboarding */}
+              
               <SidebarLinkGroup sideBarOpen={sidebarExpanded}>
                 {(handleClick, open) => {
                   return (
@@ -590,7 +590,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               Onboarding
                             </span>
                           </div>
-                          {/* Icon */}
+                       
                           <div className="flex ml-2 shrink-0">
                             <svg
                               className={`w-3 h-3 shrink-0 ml-1 fill-current text-gray-400 dark:text-gray-500 ${
@@ -651,7 +651,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                   );
                 }}
               </SidebarLinkGroup>
-              {/* Components */}
+              
               <SidebarLinkGroup
                 sideBarOpen={sidebarExpanded}
                 activecondition={pathname.includes("component")}
@@ -691,7 +691,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                               Components
                             </span>
                           </div>
-                          {/* Icon */}
+                   
                           <div className="flex ml-2 shrink-0">
                             <svg
                               className={`w-3 h-3 shrink-0 ml-1 fill-current text-gray-400 dark:text-gray-500 ${
@@ -921,7 +921,7 @@ function Sidebar({ sidebarOpen, setSidebarOpen, variant = "default" }) {
                 }}
               </SidebarLinkGroup>
             </ul>
-          </div>
+          </div>  */}
         </div>
 
         {/* Expand / collapse button */}

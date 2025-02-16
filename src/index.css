@@ -127,3 +127,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+animation: var(--animate-spin); /* spin 1s linear infinite */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { useForm } from "react-hook-form"; // Import useForm from react-hook-form
+import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { isUserLoggedIn } from "../utils/auth";
-import { login } from "../api/fetchAuth";
-import { setEncryptedLocalStorage } from "../utils/encryption";
-import ErrorModal from "../components/ErrorModal"; // Import ErrorModal
-import { getErrorMessage } from "../utils/errorHandler"; // Import the helper function
-
+import { register } from "../api/fetchAuth";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { InputPassword } from "@/components/ui/InputPassword"; // Import the InputPassword component
+import { InputPassword } from "@/components/ui/InputPassword";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Logo } from "../assets/Logo";
+import ErrorModal from "../components/ErrorModal"; // Import ErrorModal
+import { getErrorMessage } from "../utils/errorHandler";
 import { initPrivateAPI } from "../utils/Api";
-import { ErrorMessage } from "@/components/ui/ErrorMessage"; // Import the ErrorMessage component
+import { ErrorMessage } from "@/components/ui/ErrorMessage";
+import { se } from "date-fns/locale";
 
 const schema = yup
   .object({
@@ -31,11 +30,8 @@ const schema = yup
   })
   .required();
 
-export default function LoginForm({ className, ...props }) {
-  console.log("LoginPage");
-
+export default function RegisterForm({ className, ...props }) {
   const navigate = useNavigate();
-
   const [loading, setLoading] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -47,9 +43,8 @@ export default function LoginForm({ className, ...props }) {
   }, [navigate]);
 
   const {
-    register,
+    register: registerForm,
     handleSubmit,
-
     formState: { errors },
   } = useForm({
     mode: "onSubmit",
@@ -57,19 +52,24 @@ export default function LoginForm({ className, ...props }) {
   });
 
   const onSubmit = async (data) => {
+    console.log(data);
     setLoading(true);
+    // Add validation feedback here
     try {
-      const response = await login(data.email, data.password);
+      const response = await register(data.email, data.password);
+      const { token, refreshToken, message } = response;
       console.log("response ", response);
-      const { token, refreshToken } = response;
-      initPrivateAPI(token);
+      if (token && refreshToken) {
+        await initPrivateAPI(token);
 
-      setEncryptedLocalStorage("refreshToken", refreshToken);
-      navigate("/dashboard");
+        setEncryptedLocalStorage("refreshToken", refreshToken);
+        navigate("/dashboard");
+      } else {
+        navigate("/login");
+      }
     } catch (error) {
       console.log("onSubmit err ", error);
-
-      setErrorMessage(getErrorMessage(error)); // Use the helper function
+      setErrorMessage(getErrorMessage(error));
       setShowErrorModal(true);
     } finally {
       setLoading(false);
@@ -79,9 +79,9 @@ export default function LoginForm({ className, ...props }) {
   return (
     <div className="flex flex-col items-center justify-center gap-6 p-6 bg-white min-h-svh md:p-10 dark:bg-gray-900">
       <ErrorModal
-        show={showErrorModal}
-        handleClose={() => setShowErrorModal(false)}
-        errorMessage={errorMessage}
+        isOpen={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+        message={errorMessage}
       />
       <div className="w-full max-w-sm">
         <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -104,12 +104,12 @@ export default function LoginForm({ className, ...props }) {
                 </div>
 
                 <div className="mt-4 text-sm text-center">
-                  Don&apos;t have an account?{" "}
+                  Already have an account?{" "}
                   <a
                     className="underline underline-offset-4"
-                    onClick={() => navigate("/register")}
+                    onClick={() => navigate("/login")}
                   >
-                    Sign up
+                    Sign In
                   </a>
                 </div>
               </div>
@@ -120,7 +120,7 @@ export default function LoginForm({ className, ...props }) {
                     id="email"
                     type="email"
                     placeholder="m@example.com"
-                    {...register("email")}
+                    {...registerForm("email")}
                   />
                   {errors.email && (
                     <ErrorMessage message={errors.email.message} />
@@ -132,14 +132,14 @@ export default function LoginForm({ className, ...props }) {
                     id="password"
                     type="password"
                     placeholder="••••••••"
-                    {...register("password")}
+                    {...registerForm("password")}
                   />
-                  {errors.password && (
+                  {errors.email && (
                     <ErrorMessage message={errors.password.message} />
                   )}
                 </div>
                 <Button type="submit" className="w-full" loading={loading}>
-                  Login
+                  Sign Up
                 </Button>
               </div>
               <div className="relative text-sm text-center after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">

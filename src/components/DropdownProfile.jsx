@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import Transition from "../utils/Transition";
 
 import UserAvatar from "../images/user-avatar-32.png";
+import { logoutUser } from "../utils/auth";
 
 function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -40,7 +41,7 @@ function DropdownProfile({ align }) {
     <div className="relative inline-flex">
       <button
         ref={trigger}
-        className="inline-flex justify-center items-center group"
+        className="inline-flex items-center justify-center group"
         aria-haspopup="true"
         onClick={() => setDropdownOpen(!dropdownOpen)}
         aria-expanded={dropdownOpen}
@@ -53,11 +54,11 @@ function DropdownProfile({ align }) {
           alt="User"
         />
         <div className="flex items-center truncate">
-          <span className="truncate ml-2 text-sm font-medium text-gray-600 dark:text-gray-100 group-hover:text-gray-800 dark:group-hover:text-white">
+          <span className="ml-2 text-sm font-medium text-gray-600 truncate dark:text-gray-100 group-hover:text-gray-800 dark:group-hover:text-white">
             Acme Inc.
           </span>
           <svg
-            className="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400 dark:text-gray-500"
+            className="w-3 h-3 ml-1 text-gray-400 fill-current shrink-0 dark:text-gray-500"
             viewBox="0 0 12 12"
           >
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
@@ -86,14 +87,14 @@ function DropdownProfile({ align }) {
             <div className="font-medium text-gray-800 dark:text-gray-100">
               Acme Inc.
             </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 italic">
+            <div className="text-xs italic text-gray-500 dark:text-gray-400">
               Administrator
             </div>
           </div>
           <ul>
             <li>
               <Link
-                className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
+                className="flex items-center px-3 py-1 text-sm font-medium text-violet-500 hover:text-violet-600 dark:hover:text-violet-400"
                 to="/settings"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
@@ -102,9 +103,8 @@ function DropdownProfile({ align }) {
             </li>
             <li>
               <Link
-                className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
-                to="/signin"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="flex items-center px-3 py-1 text-sm font-medium text-violet-500 hover:text-violet-600 dark:hover:text-violet-400"
+                onClick={() => logoutUser()}
               >
                 Sign Out
               </Link>
