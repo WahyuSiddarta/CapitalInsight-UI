@@ -103,10 +103,10 @@ export default function LoginForm({ className, ...props }) {
                   </h1>
                 </div>
 
-                <div className="mt-4 text-sm text-center">
+                <div className="mt-4 text-sm text-center cursor-pointer">
                   Don&apos;t have an account?{" "}
                   <a
-                    className="underline underline-offset-4"
+                    className="underline cursor-pointer underline-offset-4"
                     onClick={() => navigate("/register")}
                   >
                     Sign up

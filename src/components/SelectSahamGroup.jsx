@@ -11,8 +11,9 @@ import {
 } from "@/components/ui/select";
 import ErrorModal from "./ErrorModal";
 import { useStockTicker } from "../hooks/api/useStock";
+import { cn } from "@/lib/utils";
 
-export function SelectSahamGroup({ name }) {
+export function SelectSahamGroup({ name, className }) {
   const { isLoading, isError, data, error } = useStockTicker();
   // const isLoading = false;
   // const isError = false;
@@ -59,7 +60,7 @@ export function SelectSahamGroup({ name }) {
         onValueChange={(value) => setValue(name, value)}
         value={selectedValue}
       >
-        <SelectTrigger className="w-full">
+        <SelectTrigger className={cn("w-full dark:border-gray-500", className)}>
           <SelectValue placeholder="Pilih Saham" />
         </SelectTrigger>
         <SelectContent>

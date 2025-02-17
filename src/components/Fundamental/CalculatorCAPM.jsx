@@ -1,19 +1,17 @@
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BlockMath, InlineMath } from "react-katex";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-} from "@/components/ui/card";
+
 import CalculatorCAPM10Y from "./CalculatorCAPM10Y";
-import CalculatorCAPM5Y from "./CalculatorCAPM5Y";
+import CalculatorCAPM5Custom from "./CalculatorCAPM5Custom";
 import fetchWrapper from "@/src/utils/Api";
 import ErrorModal from "../ErrorModal";
 import { getErrorMessage } from "@/src/utils/errorHandler";
 const CalculatorCAPM = () => {
-  const [resultData, setResultData] = useState(null);
+  const [resultData, setResultData] = useState({
+    fairValue: 0,
+    costOfEquity: 0,
+  });
   const [isLoading, setIsLoading] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -42,7 +40,15 @@ const CalculatorCAPM = () => {
       );
 
       console.log("response ", response);
-      setResultData(response.data);
+      const responseData = {
+        fairValue: isNaN(Number(response.data?.fairValue))
+          ? 0
+          : response.data.fairValue,
+        costOfEquity: isNaN(Number(response.data?.costOfEquity))
+          ? 0
+          : response.data.costOfEquity,
+      };
+      setResultData(responseData);
 
       setTimeout(() => {
         document.querySelector("html").style.scrollBehavior = "auto";
@@ -65,13 +71,13 @@ const CalculatorCAPM = () => {
         handleClose={() => setShowErrorModal(false)}
         errorMessage={errorMessage}
       />
-      <Card className="dark:bg-gray-600/70">
-        <CardHeader>
-          <CardDescription className="text-lg font-bold text-black dark:text-white">
+      <div className="mt-4 dark:bg-gray-800/70">
+        <div>
+          <p className="text-lg font-bold text-black dark:text-white">
             Model Penilaian Capital Asset Pricing Model (CAPM)
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="grid grid-cols-1 gap-3 space-y-2 ">
+          </p>
+        </div>
+        <div className="grid grid-cols-1 gap-3 space-y-2 ">
           <p className="mb-2 text-sm text-base">
             Capital Asset Pricing Model (CAPM) adalah model yang digunakan untuk
             menentukan tingkat pengembalian yang diharapkan dari suatu investasi
@@ -142,7 +148,7 @@ const CalculatorCAPM = () => {
           </p>
           <div
             id="code"
-            className="col-span-1 p-4 overflow-x-auto text-gray-300 whitespace-pre bg-gray-800 rounded-md code"
+            className="col-span-1 p-4 overflow-x-auto text-gray-300 whitespace-pre bg-gray-800 rounded-md dark:bg-gray-700 code"
           >
             <h2 className="mb-4 text-xl font-bold">Perhitungan Nilai Wajar</h2>
             <BlockMath
@@ -167,20 +173,14 @@ const CalculatorCAPM = () => {
           </div>
 
           <Tabs
-            defaultValue="5y"
+            defaultValue="10y"
             className="w-full mt-4"
             onValueChange={(value) => {
               setActiveTab(value);
-              setResultData(null);
+              setResultData({ fairValue: 0, costOfEquity: 0 });
             }} // Track active tab
           >
-            <TabsList className="grid w-full grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-              <TabsTrigger
-                value="5y"
-                className="border border-violet-300 lg:border-none"
-              >
-                Short Term (5Y)
-              </TabsTrigger>
+            <TabsList className="grid w-full grid-cols-1 gap-2 md:grid-cols-2">
               <TabsTrigger
                 value="10y"
                 className="border border-violet-300 lg:border-none"
@@ -195,8 +195,8 @@ const CalculatorCAPM = () => {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="5y">
-              <CalculatorCAPM5Y
+            <TabsContent value="custom">
+              <CalculatorCAPM5Custom
                 handleApi={handleSubmit}
                 isLoading={isLoading}
                 resultData={resultData}
@@ -209,12 +209,12 @@ const CalculatorCAPM = () => {
                 resultData={resultData}
               />
             </TabsContent>
-            <TabsContent value="custom">
+            {/* <TabsContent value="custom">
               <p className="w-full my-5 text-center h-min-30">Comming Soon</p>
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </>
   );
 };

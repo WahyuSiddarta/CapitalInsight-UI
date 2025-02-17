@@ -103,7 +103,7 @@ export default function RegisterForm({ className, ...props }) {
                   </h1>
                 </div>
 
-                <div className="mt-4 text-sm text-center">
+                <div className="mt-4 text-sm text-center cursor-pointer">
                   Already have an account?{" "}
                   <a
                     className="underline underline-offset-4"

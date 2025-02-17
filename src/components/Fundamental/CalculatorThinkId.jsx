@@ -23,16 +23,16 @@ import CalculatorThinkIdForm from "./CalculatorThinkIdForm";
 
 const CalculatorThinkId = () => {
   return (
-    <Card className="dark:bg-gray-600/70">
-      <CardHeader>
-        <CardDescription className="text-lg font-bold text-black dark:text-white">
+    <div className="mt-4 dark:bg-gray-800/70">
+      <div>
+        <p className="text-lg font-bold text-black dark:text-white">
           Metode perhitungan dari model adalah :
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="grid grid-cols-1 gap-3 space-y-2 ">
+        </p>
+      </div>
+      <div className="grid grid-cols-1 gap-3 space-y-2 ">
         <pre
           id="code"
-          className="col-span-1 p-4 overflow-x-auto text-gray-300 whitespace-pre bg-gray-800 rounded-md code"
+          className="col-span-1 p-4 overflow-x-auto text-gray-300 whitespace-pre bg-gray-800 rounded-md dark:bg-gray-700 code"
         >
           <code>
             <BlockMath>
@@ -74,8 +74,8 @@ const CalculatorThinkId = () => {
         <div className="grid grid-cols-1 gap-8 space-y-1">
           <CalculatorThinkIdForm />
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
